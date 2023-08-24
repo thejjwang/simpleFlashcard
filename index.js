@@ -6,7 +6,7 @@ let flashcard = document.getElementById('flashcard');
 
 let scoreValue = document.getElementById('scoreValue');
 
-let myArr = [];
+let flashcardArr = [];
 let currentFlashcardIndex = 0;
 let score = 0;
 
@@ -23,12 +23,14 @@ function updateScore(isCorrect) {
     if (isCorrect == true) {
         score++;
     }
-
 }
-
 function saveFlashcards() {
-
+    // flashcardArr to jsonstr
 }
 function loadFlashcards() {
     
+}
+showAnswerBtn.addEventListener("click", toggleHidden);
+function toggleHidden() {
+
 }
