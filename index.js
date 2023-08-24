@@ -8,13 +8,27 @@ let scoreValue = document.getElementById('scoreValue');
 
 let myArr = [];
 let currentFlashcardIndex = 0;
-let score = 0 ;
+let score = 0;
 
 function addFlashcard(question, answer) {
-
+    document.createElement('flashcardObj')
 }
 
 function showNextFlashcard() {
 
 
+}
+
+function updateScore(isCorrect) {
+    if (isCorrect == true) {
+        score++;
+    }
+
+}
+
+function saveFlashcards() {
+
+}
+function loadFlashcards() {
+    
 }
