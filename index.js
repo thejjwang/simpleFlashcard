@@ -15,10 +15,6 @@ let score = 0;
 let answer = document.getElementById('answer');
 let question = document.getElementById('question');
 
-showAnswerBtn.addEventListener('click', () => {
-    // flip card
-});
-
 // on the MakeFlashcard btn  create 2 inputs and button for making flashcards
 makeFlashcardBtn.addEventListener('click', () => {
     const inputQuestion = document.createElement('input');
@@ -86,7 +82,7 @@ function updateScore(isCorrect) {
     }
     scoreValue.innerText = score;
 }
-const saveFlashcards = async (flashcardArr) => {
+const saveFlashcards = async () => {
     // flashcardArr to jsonstr
     try {
         await fetch("http://localhost:3000/flashcards", {
@@ -94,7 +90,7 @@ const saveFlashcards = async (flashcardArr) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(flashcardArr)
+            body: JSON.stringify()
         });
     } catch {
         console.log("error saving flashcards")
@@ -117,7 +113,7 @@ const loadFlashcards = async () => {
 // inital fetch for flashcard
 loadFlashcards();
 
-
+// show answer (flip card) when btn is clicked
 showAnswerBtn.addEventListener("click", toggleHidden);
 function toggleHidden() {
 
