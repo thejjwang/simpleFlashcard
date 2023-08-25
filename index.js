@@ -48,8 +48,9 @@ makeFlashcardBtn.addEventListener('click', () => {
 function addFlashcard(question, answer) {
     const newFlashcard = {
         question: question, 
-        answer: answer
-    };
+        answer: answer,
+        answeredCorrectly: 0
+};
     flashcardArr.push(newFlashcard);
     console.log(flashcardArr);
     saveFlashcards(newFlashcard);
@@ -86,13 +87,13 @@ function updateScore(isCorrect) {
 const saveFlashcards = async (newFlashcard) => {
     // flashcardArr to jsonstr
     try {
-        await fetch("http://localhost:3000/flashcards", {
+        const response = await fetch("http://localhost:3000/flashcards", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newFlashcard),
-        });
+        }); 
     } catch {
         console.log("error saving flashcards")
     }
@@ -117,5 +118,5 @@ loadFlashcards();
 // show answer (flip card) when btn is clicked
 showAnswerBtn.addEventListener("click", toggleHidden);
 function toggleHidden() {
-
+    
 }
