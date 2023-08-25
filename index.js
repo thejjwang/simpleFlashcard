@@ -68,13 +68,16 @@ function updateScore(isCorrect) {
 }
 function saveFlashcards() {
     // flashcardArr to jsonstr
+    const jsonArr = JSON.stringify(flashcardArr);
+    console.log(jsonArr);
 }
 const loadFlashcards = async () => {
     try {
         const response = await fetch("http://localhost:3000/flashcards");
         const data = await response.json();
         console.log(data);
-        flashcardArr.push(data);
+        // needed to add spread operator bcuz to make sure to get array of flashcards instead of one object
+        flashcardArr.push(...data);
         console.log(flashcardArr);
     } catch {
         console.log("error loading flashcards")
