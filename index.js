@@ -39,7 +39,8 @@ const loadFlashcards = async () => {
         const response = await fetch("http://localhost:3000/flashcards");
         const data = await response.json();
         console.log(data);
-        
+        flashcardArr.push(data);
+        console.log(flashcardArr);
     } catch {
         console.log("error loading flashcards")
     }
