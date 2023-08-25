@@ -17,6 +17,7 @@ let question = document.getElementById('question');
 
 // on the MakeFlashcard btn  create 2 inputs and button for making flashcards
 makeFlashcardBtn.addEventListener('click', () => {
+    makeFlashcardContainer.innerHTML = "";
     const inputQuestion = document.createElement('input');
     inputQuestion.id = 'userQuestion';
     inputQuestion.type = 'text';
@@ -50,8 +51,8 @@ function addFlashcard(question, answer) {
         answer: answer
     };
     flashcardArr.push(newFlashcard);
-    console.log(newFlashcard);
-    saveFlashcards();
+    console.log(flashcardArr);
+    saveFlashcards(newFlashcard);
 }
 correctBtn.addEventListener("click", () => {
     updateScore(true);
@@ -82,7 +83,7 @@ function updateScore(isCorrect) {
     }
     scoreValue.innerText = score;
 }
-const saveFlashcards = async () => {
+const saveFlashcards = async (newFlashcard) => {
     // flashcardArr to jsonstr
     try {
         await fetch("http://localhost:3000/flashcards", {
@@ -90,7 +91,7 @@ const saveFlashcards = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify()
+            body: JSON.stringify(newFlashcard),
         });
     } catch {
         console.log("error saving flashcards")
