@@ -15,6 +15,10 @@ let score = 0;
 let answer = document.getElementById('answer');
 let question = document.getElementById('question');
 
+showAnswerBtn.addEventListener('click', () => {
+    // flip card
+});
+
 // on the MakeFlashcard btn  create 2 inputs and button for making flashcards
 makeFlashcardBtn.addEventListener('click', () => {
     const inputQuestion = document.createElement('input');
@@ -53,23 +57,48 @@ function addFlashcard(question, answer) {
     console.log(newFlashcard);
     saveFlashcards();
 }
-
+correctBtn.addEventListener("click", () => {
+    updateScore(true);
+    currentFlashcardIndex++;
+    showNextFlashcard();
+    saveFlashcards();
+});
+incorrectBtn.addEventListener("click", () => {
+    updateScore(false);
+    currentFlashcardIndex++;
+    showNextFlashcard();
+    saveFlashcards();
+});
 function showNextFlashcard() {
     if (currentFlashcardIndex < flashcardArr.length) {
-        
+        for (let i = currentFlashcardIndex; i < flashcardArr.length; i++) {
+            question.innerHTML = flashcardArr[i].question;
+            answer.innerHTML = flashcardArr[i].answer;
+            break;
+        }
+    } else {
+        alert("No More Flashcards")
     }
-
 }
-
 function updateScore(isCorrect) {
     if (isCorrect == true) {
         score++;
     }
+    scoreValue.innerText = score;
 }
-function saveFlashcards() {
+const saveFlashcards = async (flashcardArr) => {
     // flashcardArr to jsonstr
-    const jsonArr = JSON.stringify(flashcardArr);
-    console.log(jsonArr);
+    try {
+        await fetch("http://localhost:3000/flashcards", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(flashcardArr)
+        });
+    } catch {
+        console.log("error saving flashcards")
+    }
 }
 const loadFlashcards = async () => {
     try {
@@ -79,12 +108,15 @@ const loadFlashcards = async () => {
         // needed to add spread operator bcuz to make sure to get array of flashcards instead of one object
         flashcardArr.push(...data);
         console.log(flashcardArr);
+        // to display first flashcard
+        showNextFlashcard();
     } catch {
         console.log("error loading flashcards")
     }
 }
 // inital fetch for flashcard
 loadFlashcards();
+
 
 showAnswerBtn.addEventListener("click", toggleHidden);
 function toggleHidden() {
