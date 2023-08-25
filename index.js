@@ -12,10 +12,13 @@ let score = 0;
 
 function addFlashcard(question, answer) {
     document.createElement('flashcardObj')
+    saveFlashcards();
 }
 
 function showNextFlashcard() {
+    if (currentFlashcardIndex < flashcardArr.length) {
 
+    }
 
 }
 
@@ -27,9 +30,16 @@ function updateScore(isCorrect) {
 function saveFlashcards() {
     // flashcardArr to jsonstr
 }
-function loadFlashcards() {
-    
+const loadFlashcards = async () => {
+    try {
+        const response = await fetch("db.json");
+        const data = await response.json();
+        console.log(data);
+    } catch {
+        console.log("error loading flashcards")
+    }
 }
+
 showAnswerBtn.addEventListener("click", toggleHidden);
 function toggleHidden() {
 
